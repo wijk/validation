@@ -1,12 +1,13 @@
 package Validators;
 
-public class IsNotNull extends Validatator {
+public class IsNotNull extends Valid {
 
+    @Override
     public boolean isValid(String input){
         return input != null;
     }
 
-    String getDescription() {
-        return "Checks if input is not null.";
+    public String getDescription() {
+        return "IsNotNull: Checks if input is not null.";
     }
 }

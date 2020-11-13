@@ -5,11 +5,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class IsPersNum extends Validatator {
+public class IsPersNum extends Valid {
     private final TextFormatter tf = new TextFormatter();
     private final Pattern persNumP = Pattern.compile("\\d{8,10}");
     private Matcher m;
 
+    @Override
     public boolean isValid(String input){
         List<String> persNumList = tf.formatPersNumInput(input);
         m = persNumP.matcher(String.join("", persNumList));
@@ -42,14 +43,14 @@ public class IsPersNum extends Validatator {
         }
         return input;
     }
-    //Adds the list together and does mod(totalValue) => 10-value => mod value
+    //Adds the list together and does mod(totalValue) => 10-value => mod(value)
     private boolean persNumMod(List<Integer> input, int lastNum){
         int validator =  input.stream().mapToInt(n -> (int) n).sum();
         validator = (10 - (validator % 10)) % 10;
         return validator == lastNum;
     }
 
-    String getDescription() {
-        return "Checks if input is a valid swedish personal number";
+    public String getDescription() {
+        return "IsPersNum: Checks if input is a valid swedish personal number";
     }
 }

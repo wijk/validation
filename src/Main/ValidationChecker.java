@@ -1,14 +1,8 @@
 package Main;
 
-import Validators.IsCarNum;
-import Validators.IsNotEmpty;
-import Validators.IsNotNull;
-import Validators.IsPersNum;
+import Validators.*;
 
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 public class ValidationChecker {
     private IsCarNum isCarNum = new IsCarNum();
@@ -16,28 +10,40 @@ public class ValidationChecker {
     private IsNotEmpty isNotEmpty = new IsNotEmpty();
     private IsNotNull isNotNull = new IsNotNull();
     private ErrorLogger errorLogger = new ErrorLogger();
+    private List<Valid> validatorList;
 
-    public ValidationChecker() throws IOException {
+    public ValidationChecker() {
     }
 
     public void validateInput(String input){
-        if(isNotNull.isValid(input) && isNotEmpty.isValid(input)){
-            if(isPersNum.isValid(input)){
-                System.out.println(input + " is a valid personal number.");
-            } else if(isCarNum.isValid(input)){
-                System.out.println(input + " is a valid car number.");
+        for(Valid validator : validatorList){
+            if(!validator.isValid(input)){
+                errorLogger.loggError(input + " Failed at " + validator.getDescription());
             } else {
-                System.out.println(input + " is neiter a personal number or car number.");
-                errorLogger.loggError(input);
+
             }
         }
     }
 
+    private void makeValidatorList(String type){
+        validatorList = new ArrayList<Valid>();
+        validatorList.add(isNotNull);
+        validatorList.add(isNotEmpty);
+        if(type.equals("carnum")){
+            validatorList.add(isCarNum);
+        } else {
+            validatorList.add(isPersNum);
+        }
 
-    public static void main(String[] args) throws IOException {
-        ArrayList argsList = new ArrayList(Arrays.asList(args));
+    }
+
+
+    public static void main(String[] args) {
+        ArrayList<String> argsList = new ArrayList(Arrays.asList(args));
         ValidationChecker validationChecker = new ValidationChecker();
-        Arrays.stream(args).forEach(n -> {
+        validationChecker.makeValidatorList(argsList.get(0).toString());
+        argsList.remove(0);
+        argsList.stream().forEach(n ->{
             validationChecker.validateInput(n);
         });
     }
