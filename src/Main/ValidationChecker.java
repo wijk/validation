@@ -41,10 +41,13 @@ public class ValidationChecker {
     public static void main(String[] args) {
         ArrayList<String> argsList = new ArrayList(Arrays.asList(args));
         ValidationChecker validationChecker = new ValidationChecker();
-        validationChecker.makeValidatorList(argsList.get(0).toString());
-        argsList.remove(0);
-        argsList.stream().forEach(n ->{
-            validationChecker.validateInput(n);
-        });
+        if(argsList.size() != 0) {
+            validationChecker.makeValidatorList(argsList.get(0).toString());
+            argsList.remove(0);
+            argsList.stream().forEach(validationChecker::validateInput);
+        } else {
+            System.out.println("To run, set a list of arguments, first select what to verify persnum/carnum followed" +
+                    " by what to verify. I.E persnum 19780202-2389 19820411-2380 11111111-1111");
+        }
     }
 }
