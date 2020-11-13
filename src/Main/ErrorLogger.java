@@ -12,9 +12,10 @@ public class ErrorLogger {
     private FileHandler fileHandler;
     private SimpleFormatter formatter;
     private LocalDateTime dateTime;
+    private Logger logger;
 
     public ErrorLogger() throws IOException {
-        Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+        this.logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
         logger.setLevel(Level.INFO);
         try{
             fileHandler = new FileHandler("Logg.txt");
@@ -26,6 +27,11 @@ public class ErrorLogger {
         fileHandler.setFormatter(formatter);
         logger.addHandler(fileHandler);
 
+    }
+
+    public void loggError(String input){
+        dateTime = LocalDateTime.now();
+        logger.info(dateTime + ": failed to validate " + input);
     }
 
 

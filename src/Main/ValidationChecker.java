@@ -28,7 +28,7 @@ public class ValidationChecker {
                 System.out.println(input + " is a valid car number.");
             } else {
                 System.out.println(input + " is neiter a personal number or car number.");
-                errorLogger.info("");
+                errorLogger.loggError(input);
             }
         }
     }
