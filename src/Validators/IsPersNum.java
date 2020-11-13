@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class IsPersNum extends ValidationChecker {
+public class IsPersNum extends Validatator {
     private final TextFormatter tf = new TextFormatter();
     private final Pattern persNumP = Pattern.compile("\\d{8,10}");
     private Matcher m;

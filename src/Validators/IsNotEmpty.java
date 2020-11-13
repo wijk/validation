@@ -1,6 +1,6 @@
 package Validators;
 
-public class IsNotEmpty extends ValidationChecker{
+public class IsNotEmpty extends Validatator {
 
     public boolean isValid(String input){
         return !input.equals("");

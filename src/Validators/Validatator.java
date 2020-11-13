@@ -1,6 +1,6 @@
 package Validators;
 
-public abstract class ValidationChecker{
+public abstract class Validatator {
     abstract boolean isValid(String input);
     abstract String getDescription();
 }

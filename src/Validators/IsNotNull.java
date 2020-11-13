@@ -1,6 +1,6 @@
 package Validators;
 
-public class IsNotNull extends ValidationChecker{
+public class IsNotNull extends Validatator {
 
     public boolean isValid(String input){
         return input != null;
